@@ -23,7 +23,7 @@ public class GarageTest {
 
 	@Test
 	public void testInitialisationVoiture() {
-		// Au début, la voiture n'est pas dans un garage
+		// Au debut, la voiture n'est pas dans un garage
 		assertFalse(v1.estDansUnGarage());
 		assertTrue(v1.garagesVisites().isEmpty());
 	}
@@ -98,14 +98,14 @@ public class GarageTest {
 		// On imprime dans os
 		v1.imprimeStationnements(ps);
 		
-		// On récupère le résultat de l'impression
+		// On recupere le resultat de l'impression
 		String output = os.toString("UTF8");
 
 		assertEquals(1, countSubstring(output, g1.toString()),
-                         g1.toString() + " doit apparaître une fois");
+                         g1.toString() + " doit apparaitre une fois");
 
 		assertEquals(1,	countSubstring(output, g2.toString()),
-                    g2.toString() + " doit apparaître une fois");
+                    g2.toString() + " doit apparaitre une fois");
 
 		assertEquals(3,	countSubstring(output, "Stationnement"),
                         "On doit imprimer trois stationnements"	);

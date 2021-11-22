@@ -46,7 +46,13 @@ public class Voiture {
 		if (this.estDansUnGarage()==false) {
 			throw new IllegalArgumentException("La voiture n'est pas dans un garage.") ;
 		}
-		myStationnements.get(myStationnements.size()).terminer();
+		if (myStationnements.size()==0) {
+			throw new IllegalArgumentException("Aucun stationnement n'a ete enregistre.") ;
+		}else {
+			Stationnement dernierSta = myStationnements.get(myStationnements.size()-1) ;
+			dernierSta.terminer();
+		}
+		
 		// TODO: Implémenter cette méthode
 		// Trouver le dernier stationnement de la voiture
 		// Terminer ce stationnement
@@ -58,9 +64,11 @@ public class Voiture {
 	public Set<Garage> garagesVisites() {
 		// TODO: Implémenter cette méthode
 		Set<Garage> listeGarages = new HashSet<Garage>() ;
-		for (int i=0; i<myStationnements.size() ; i++) {
-			Garage g = myStationnements.get(i).getGarage() ;
-			listeGarages.add(g) ;
+		if (myStationnements.size()!=0) {
+			for (int i=0; i<myStationnements.size() ; i++) {
+				Garage g = myStationnements.get(i).getGarage() ;
+				listeGarages.add(g) ;
+			}
 		}
 		return listeGarages ;
 	}
@@ -70,8 +78,14 @@ public class Voiture {
 	 */
 	public boolean estDansUnGarage() {
 		// TODO: Implémenter cette méthode
-		Stationnement dernierSta = myStationnements.get(myStationnements.size()) ;
-		boolean r = dernierSta.estEnCours() ;
+		boolean r ;
+		if (myStationnements.size()==0) {
+			r=false ;
+		}else {
+			Stationnement dernierSta = myStationnements.get(myStationnements.size()-1) ;
+			r = dernierSta.estEnCours() ;
+		}
+		
 		return r ;
 		// Vrai si le dernier stationnement est en cours
 	}
@@ -88,16 +102,16 @@ public class Voiture {
 	 *		Stationnement{ entree=28/01/2019, sortie=28/01/2019 }
 	 * </pre>
 	 *
-	 * @param out l'endroit où imprimer (ex: System.out)
+	 * @param out l'endroit a imprimer (ex: System.out)
 	 */
 	public void imprimeStationnements(PrintStream out) {
 		// TODO: Implémenter cette méthode
 		Set<Garage> g = this.garagesVisites() ;
 		for (Garage i : g) {
-			System.out.println(i + " : /n");
+			out.println(i + " : \n");
 			for (Stationnement s : myStationnements) {
 				if (s.getGarage()==i) {
-					System.out.println(s + "/n") ;
+					out.println(s + "\n") ;
 				}
 			}
 		}
